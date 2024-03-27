@@ -5,13 +5,11 @@ import { useState } from "react";
 
 const Ip = () => {
   useState()
-  
+
   function handleForm(e) {
     e.preventDefault();
     const fd = new FormData(e.target)
     const data = Object.fromEntries(fd.entries())
-    
-
     console.log(data);
     e.target.reset()
 
