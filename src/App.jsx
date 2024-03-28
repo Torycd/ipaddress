@@ -3,7 +3,7 @@ import Map from "./Map";
 
 function App() {
   return (
-    <div>
+    <div className="w-dvh">
       <Ip/>
       <Map/>
     </div>

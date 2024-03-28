@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.leaflet-container {
+    height: 60dvh;
+    z-index: 0;
+    margin-top: -9%;
+}
