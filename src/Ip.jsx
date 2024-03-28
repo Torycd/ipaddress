@@ -16,7 +16,7 @@ const Ip = () => {
   }
   return (
     <div
-      className={`w-dvh h-[40%] text-white mb-36 ${
+      className={`w-dvh h-[40dvh] text-white mb-36 ${
         window.innerWidth >= 375 ? "md:flex flex-col" : ""
       }`}
       style={{
