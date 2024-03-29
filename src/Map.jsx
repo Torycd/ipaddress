@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
+import { fetchRequest } from "./hooks/useHttp.js"
 
 const Map = () => {
   const [location, setLocation] = useState([]);
@@ -20,7 +21,8 @@ const Map = () => {
 
         setLocation(currentLocation);
       } catch (error) {
-        // handle error
+        const defaultLocation = [ 9.05294804288, 7.507094031]
+        setLocation(defaultLocation)
       } finally {
         setLoading(false);  
       }
@@ -28,6 +30,9 @@ const Map = () => {
 
     handleLocation();
   }, []);
+
+  const { ipAddress, cityLocation, postalCode, countryLocation, lat, lng, isp } = fetchRequest()
+  console.log(lat)
 
   return (
     <>
