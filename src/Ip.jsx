@@ -16,7 +16,7 @@ const Ip = () => {
   }
   return (
     <div
-      className={`w-dvh h-auto text-white ${
+      className={`w-dvh h-auto pt-10 text-white ${
         window.innerWidth >= 375 ? "md:flex flex-col" : ""
       }`}
       style={{
@@ -36,6 +36,7 @@ const Ip = () => {
           name="number"
           pattern="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$"
           placeholder="Search for any IP Address or Domain"
+
         />
 
         <button className="bg-black w-[50px] flex justify-center text-white rounded-tr-lg rounded-br-lg hover:bg-slate-700">
