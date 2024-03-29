@@ -7,18 +7,28 @@ import Details from "./Details";
 // import { fetchRequest } from "./hooks/useHttp.js"
 
 const Ip = () => {
-  useState();
-
+  const [input, setInput] = useState("");
   const handleForm = useCallback(function handleForm(e) {
     e.preventDefault();
     const fd = new FormData(e.target);
     const data = Object.fromEntries(fd.entries());
-    console.log(data);
+    const number = data['number']
+    setInput(number);
+    // console.log(number);
     e.target.reset();
   }, []);
-  // useEffect(() => {
-  //   const { lat } = async fetchRequest()
-  // }, [handleForm]);
+
+  useEffect(() => {
+    async function fetchRequest() {
+      console.log(input)
+      const response = await fetch(
+        "https://geo.ipify.org/api/v2/country?apiKey=at_K17fN7GAmlyTrbnxTGKX480U9xxV0&ipAddress=8.8.8.8"
+      );
+      const data = response.json();
+      return { location: data.location };
+    }
+    fetchRequest();
+  }, [handleForm, input]);
 
   return (
     <div
