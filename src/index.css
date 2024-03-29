@@ -3,7 +3,12 @@
 @tailwind utilities;
 
 .leaflet-container {
-    display: block;
-    height: 600px;
-    z-index: -10;
+  display: block;
+  height: 600px;
+  z-index: -10;
+}
+div {
+  color: hsl(228, 45%, 44%);
+  font-size: 11px;
+  text-align: center;
 }
