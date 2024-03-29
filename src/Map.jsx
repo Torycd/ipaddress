@@ -21,9 +21,8 @@ const Map = () => {
         // ..
       }
     }
+    handleLocation();
     console.log(location);
-
-    // handleLocation();
   }, [location]);
 
   return (
