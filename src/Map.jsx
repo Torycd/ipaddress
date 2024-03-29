@@ -1,11 +1,12 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
-import { fetchRequest } from "./hooks/useHttp.js"
+import { fetchRequest } from "./hooks/useHttp.js";
 
 const Map = () => {
   const [location, setLocation] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [lat, setLat] = useState("")
 
   useEffect(() => {
     const handleLocation = async () => {
@@ -15,25 +16,30 @@ const Map = () => {
         });
 
         const currentLocation = [
-          position.coords.latitude, 
-          position.coords.longitude
+          position.coords.latitude,
+          position.coords.longitude,
         ];
 
         setLocation(currentLocation);
       } catch (error) {
-        const defaultLocation = [ 9.05294804288, 7.507094031]
-        setLocation(defaultLocation)
+        const defaultLocation = [9.05294804288, 7.507094031];
+        setLocation(defaultLocation);
       } finally {
-        setLoading(false);  
+        setLoading(false);
       }
     };
 
     handleLocation();
   }, []);
 
-  const { ipAddress, cityLocation, postalCode, countryLocation, lat, lng, isp } = fetchRequest()
-  console.log(lat)
+  useEffect(() => {
 
+    fetchRequest()
+      .then(data => setLat(data.location))
+      .catch(() => setLat(null));
+
+  }, []);
+  console.log(lat)
   return (
     <>
       {loading ? (
