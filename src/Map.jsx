@@ -13,12 +13,12 @@ const Map = () => {
           navigator.geolocation.getCurrentPosition(resolve, reject);
         });
 
-        const sortedPlaces = [
+        const currentLocation = [
           position.coords.latitude, 
           position.coords.longitude
         ];
 
-        setLocation(sortedPlaces);
+        setLocation(currentLocation);
       } catch (error) {
         // handle error
       } finally {
