@@ -4,8 +4,6 @@ import { SlArrowRight } from "react-icons/sl";
 import { useEffect, useState, useCallback } from "react";
 import Details from "./Details";
 
-// import { fetchRequest } from "./hooks/useHttp.js"
-
 const Ip = () => {
   const [input, setInput] = useState("");
   const handleForm = useCallback(function handleForm(e) {
@@ -21,6 +19,7 @@ const Ip = () => {
   useEffect(() => {
     async function fetchRequest() {
       console.log(input)
+      // to use this input in the API
       const response = await fetch(
         "https://geo.ipify.org/api/v2/country?apiKey=at_K17fN7GAmlyTrbnxTGKX480U9xxV0&ipAddress=8.8.8.8"
       );
