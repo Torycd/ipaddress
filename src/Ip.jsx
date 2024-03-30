@@ -5,6 +5,7 @@ import { useState, useCallback, useEffect } from "react";
 import Details from "./Details";
 import useHttp from "./hooks/useHttp.js";
 import API_KEY from "./Config";
+import PropTypes from "prop-types";
 
 const Ip = ({ setLocation }) => {
   const [input, setInput] = useState("");
@@ -64,6 +65,10 @@ const Ip = ({ setLocation }) => {
       <Details data={data} />
     </div>
   );
+};
+
+Ip.propTypes = {
+  setLocation: PropTypes.array,
 };
 
 export default Ip;

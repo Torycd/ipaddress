@@ -1,6 +1,7 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 const Map = ({ location }) => {
   const [loading, setLoading] = useState(true);
@@ -40,6 +41,10 @@ const Map = ({ location }) => {
       )}
     </>
   );
+};
+
+Map.propTypes = {
+  location: PropTypes.array,
 };
 
 export default Map;
