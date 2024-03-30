@@ -5,7 +5,7 @@
 .leaflet-container {
   display: block;
   height: 600px;
-  z-index: 10;
+  z-index: 0;
 }
 div {
   color: hsl(228, 45%, 44%);
