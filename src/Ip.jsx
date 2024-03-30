@@ -9,7 +9,7 @@ import  API_KEY  from "./Config";
 const Ip = () => {
   const [input, setInput] = useState("");
 
-  const { isLoading, data, fetchData } = useHttp(
+  const { data, fetchData } = useHttp(
     `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&ip=${input}`,
     input
   );
@@ -53,7 +53,7 @@ const Ip = () => {
           <SlArrowRight className="self-center" />
         </button>
       </form>
-      <Details />
+      <Details data={data} />
     </div>
   );
 };

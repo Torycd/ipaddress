@@ -6,25 +6,26 @@ const useHttp = (url, input) => {
   const [isNewInput, setIsNewInput] = useState(false);
 
   useEffect(() => {
-    if (isNewInput) {
-      setIsLoading(true);
-      fetch(url)
-        .then((response) => {
+    const fetchData = async () => {
+      if (isNewInput) {
+        setIsLoading(true);
+        try {
+          const response = await fetch(url);
           if (!response.ok) {
             throw new Error("Failed to fetch data");
           }
-          return response.json();
-        })
-        .then((data) => {
-          setIsLoading(false);
+          const data = await response.json();
           setFetchedData(data);
-        })
-        .catch((error) => {
-          setIsLoading(false);
+        } catch (error) {
           console.error(error);
-        });
-      setIsNewInput(false);
-    }
+        } finally {
+          setIsLoading(false);
+        }
+        setIsNewInput(false);
+      }
+    };
+
+    fetchData();
   }, [url, isNewInput]);
 
   const fetchData = () => {
