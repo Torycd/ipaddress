@@ -3,9 +3,11 @@ import smallHeader from "./assets/pattern-bg-mobile.png";
 import { SlArrowRight } from "react-icons/sl";
 import { useEffect, useState, useCallback } from "react";
 import Details from "./Details";
-import  API_KEY  from "./Config";
+import API_KEY from "./Config";
 const Ip = () => {
   const [input, setInput] = useState("");
+  const [data, setdata] = useState();
+
   const handleForm = useCallback(function handleForm(e) {
     e.preventDefault();
     const fd = new FormData(e.target);
@@ -17,19 +19,22 @@ const Ip = () => {
   }, []);
 
   useEffect(() => {
-    async function fetchRequest() {
-      // console.log(input);
-      const randomIP = input
-      const url = `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&ip=${randomIP}`;
-      const response = await fetch(url);
-      const data = response.json();
-      console.log(data);
-      return { location: data.location };
+    const randomIP = input;
+    const url = `https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}&ip=${randomIP}`;
+    if (!input) return;
+
+    async function fetchLocation() {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        setdata(data);
+      } catch (err) {
+        // ...
+      }
+      console.log(data)
     }
-    if (input) {
-      fetchRequest();
-    }
-  }, [input]);
+    fetchLocation();
+  }, []);
 
   return (
     <div
