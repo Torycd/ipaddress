@@ -1,17 +1,37 @@
-export async function fetchRequest() {
-  const response = await fetch(
-    "https://geo.ipify.org/api/v2/country?apiKey=at_K17fN7GAmlyTrbnxTGKX480U9xxV0&ipAddress=8.8.8.8"
-  );
-  const data = response.json();
-  // const location  = data.location
-  // const ipAddress = data.ip
-  // const timeZone = data.time_zone.offset
-  // const cityLocation = data.city
-  // const postalCode = data.zipcode
-  // const countryLocation = data.city
-  // const lat = data.latitude
-  // const lng = data.longitude
-  // const isp = data.isp
+import { useState, useEffect } from "react";
 
-  return { location: data.location };
-}
+const useHttp = (url, input) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [fetchedData, setFetchedData] = useState(null);
+  const [isNewInput, setIsNewInput] = useState(false);
+
+  useEffect(() => {
+    if (isNewInput) {
+      setIsLoading(true);
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setIsLoading(false);
+          setFetchedData(data);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          console.error(error);
+        });
+      setIsNewInput(false);
+    }
+  }, [url, isNewInput]);
+
+  const fetchData = () => {
+    setIsNewInput(true);
+  };
+
+  return { isLoading, data: fetchedData, fetchData };
+};
+
+export default useHttp;
