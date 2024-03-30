@@ -1,12 +1,12 @@
 import desktopHeader from "./assets/pattern-bg-desktop.png";
 import smallHeader from "./assets/pattern-bg-mobile.png";
 import { IoIosArrowForward as SlArrowRight } from "react-icons/io";
-import { useState, useCallback} from "react";
+import { useState, useCallback, useEffect } from "react";
 import Details from "./Details";
 import useHttp from "./hooks/useHttp.js";
-import  API_KEY  from "./Config";
+import API_KEY from "./Config";
 
-const Ip = () => {
+const Ip = ({ setLocation }) => {
   const [input, setInput] = useState("");
 
   const { data, fetchData } = useHttp(
@@ -14,17 +14,25 @@ const Ip = () => {
     input
   );
 
-  const handleForm = useCallback((e) => {
-    e.preventDefault();
-    const fd = new FormData(e.target);
-    const formData = Object.fromEntries(fd.entries());
-    const number = formData["input"];
-    setInput(number);
-    e.target.reset();
-    fetchData();
-  }, [fetchData]);
+  const handleForm = useCallback(
+    (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const formData = Object.fromEntries(fd.entries());
+      const number = formData["input"];
+      setInput(number);
+      e.target.reset();
+      fetchData();
+    },
+    [fetchData]
+  );
 
-  console.log(data);
+  // Update location state in App component when data is fetched
+  useEffect(() => {
+    if (data && data.latitude && data.longitude) {
+      setLocation([data.latitude, data.longitude]);
+    }
+  }, [data, setLocation]);
 
   return (
     <div

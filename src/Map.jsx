@@ -1,57 +1,37 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
-// import { fetchRequest } from "./hooks/useHttp.js";
 
-const Map = () => {
-  const [location, setLocation] = useState([]);
+const Map = ({ location }) => {
   const [loading, setLoading] = useState(true);
-  // const [lat, setLat] = useState("")
+  const [mapLocation, setMapLocation] = useState([]);
 
+  // Update map location when the location prop changes
   useEffect(() => {
-    const handleLocation = async () => {
-      try {
-        const position = await new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject);
-        });
+    if (location) {
+      setMapLocation(location);
+    }
+  }, [location]);
 
-        const currentLocation = [
-          position.coords.latitude,
-          position.coords.longitude,
-        ];
+  // Update loading state when map location is set
+  useEffect(() => {
+    if (mapLocation.length > 0) {
+      setLoading(false);
+    }
+  }, [mapLocation]);
 
-        setLocation(currentLocation);
-      } catch (error) {
-        const defaultLocation = [9.05294804288, 7.507094031];
-        setLocation(defaultLocation);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    handleLocation();
-  }, []);
-
-  // useEffect(() => {
-
-  //   fetchRequest()
-  //     .then(data => setLat(data.location))
-  //     .catch(() => setLat(null));
-
-  // }, []);
-  // console.log(lat)
   return (
     <>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <MapContainer center={location} zoom={13} scrollWheelZoom={true}>
+        <MapContainer center={mapLocation} zoom={13} scrollWheelZoom={true}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          <Marker position={location}>
+          <Marker position={mapLocation}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
