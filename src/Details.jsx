@@ -18,19 +18,28 @@ const Details = ({ data }) => {
       <div className="md:border-r-2">
         <h4 className="font-bold md:text-[13px] opacity-50">TIMEZONE</h4>
         <p className="md:text-[22px] uppercase font-bold">
-          {data ? data.time_zone.current_time : "Whatever is your time"}
+          {data ? (data.time_zone ? data.time_zone.current_time : "Unknown") : "Unknown"}
         </p>
       </div>
       <div>
         <h4 className="font-bold md:text-[13px] opacity-50">ISP</h4>
         <p className="md:text-[22px] uppercase font-bold">
-          {data ? data.isp : "Network!!"}
+          {data ? data.isp : "Unknown"}
         </p>
       </div>
     </div>
   );
 };
+
 Details.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.shape({
+    ip: PropTypes.string,
+    country_name: PropTypes.string,
+    time_zone: PropTypes.shape({
+      current_time: PropTypes.string
+    }),
+    isp: PropTypes.string
+  })
 };
+
 export default Details;
